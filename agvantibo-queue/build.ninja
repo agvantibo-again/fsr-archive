@@ -1,0 +1,29 @@
+cflags = -Wall -Wextra -Wpedantic -Wconversion $
+-Wsign-conversion -Wdouble-promotion -Werror -O0 $
+-g3 -fstandalone-debug -fstack-protector -std=c23
+# -fsanitize=address,undefined -fsanitize-trap
+
+cc = clang
+
+# Queue implementation (agv/queue*.c)
+queue = list
+
+rule cc_o
+    depfile = $out.d
+    command = $cc -MD -MF $out.d $cflags -c $in -o $out.o
+
+rule cc_so
+    depfile = $out.d
+    command = $cc -MD -MF $out.d $cflags -fPIC -shared -o $out $in 
+
+rule cc_bin
+    depfile = $out.d
+    command = $cc -MD -MF $out.d $cflags -o $out $in -L./ -Wl,-R -Wl,./ -lqueue
+
+build libqueue.so: cc_so agv/queue-$queue.c
+
+build main: cc_bin main.c || libqueue.so
+build queue_interactive: cc_bin queue.c || libqueue.so
+
+default main
+default queue_interactive

@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "cmath": "c",
+        "cstdint": "c",
+        "cstdio": "c",
+        "cstdlib": "c",
+        "type_traits": "c",
+        "utility": "c"
+    }
+}

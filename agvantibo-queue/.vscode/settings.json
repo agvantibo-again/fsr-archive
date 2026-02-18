@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "common.h": "c",
+        "queue.h": "c",
+        "typeinfo": "c",
+        "text_encoding": "c",
+        "stdio.h": "c",
+        "queue-array-naive.h": "c",
+        "time.h": "c"
+    }
+}
