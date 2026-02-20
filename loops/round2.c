@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   int n;
   bool sb = false;
   scanf("%d", &n);
@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     putchar('0');
     return 0;
   }
-  n--;  
+  n--;
 
   for (int i = sizeof n * 8 - 1; i >= 0; i--) {
     if (n & (1 << i)) { // mask all bits except i-th one
@@ -21,4 +21,4 @@ int main(int argc, char** argv) {
     }
   }
   return 0;
-} 
+}

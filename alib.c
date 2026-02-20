@@ -2,21 +2,19 @@
 #include "alib.h"
 #endif // the double include guard is needed for concatenation
 
-void list_init(ListNode* head) {
-  head->prev = head->next = NULL;
-}
+void list_init(ListNode *head) { head->prev = head->next = NULL; }
 
-void list_append(ListNode* head, ListNode* node) {
-  ListNode* inode = head;
+void list_append(ListNode *head, ListNode *node) {
+  ListNode *inode = head;
   while (inode->next != NULL) {
     inode = inode->next;
   }
   inode->next = node;
   node->prev = inode;
-  node->next = NULL; 
+  node->next = NULL;
 }
 
-void list_remove(ListNode* node) {
+void list_remove(ListNode *node) {
   if (node->prev != NULL) {
     node->prev->next = node->next;
   }
@@ -27,14 +25,13 @@ void list_remove(ListNode* node) {
   node->next = NULL;
 }
 
-size_t list_len(ListNode const * head) {
+size_t list_len(ListNode const *head) {
   size_t len = 1;
-  ListNode const * inode = head;
+  ListNode const *inode = head;
   while (inode->next != NULL) {
     inode = inode->next;
     len++;
   }
-  
+
   return len;
 }
-

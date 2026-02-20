@@ -1,8 +1,7 @@
-#include<stdio.h>
-#include<stdbool.h>
-#include<math.h>
-#include<float.h>
-
+#include <float.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 // #define DEBUG
 
@@ -12,15 +11,21 @@
 #define DEBUG_TEST 0
 #endif
 
-#define debug_print(fmt, ...) \
-            do { if (DEBUG_TEST) fprintf(stderr, fmt, __VA_ARGS__); } while (0)
+#define debug_print(fmt, ...)                                                  \
+  do {                                                                         \
+    if (DEBUG_TEST)                                                            \
+      fprintf(stderr, fmt, __VA_ARGS__);                                       \
+  } while (0)
 
 // 𝕍 — number of vertices
 // μ — minimal vertex weight
 
-struct Point {int x, y;};
+struct Point {
+  int x, y;
+};
 
-static inline long double distance_euclid(struct Point const a, struct Point const b) {
+static inline long double distance_euclid(struct Point const a,
+                                          struct Point const b) {
   return sqrtl(powl(a.x - b.x, 2) + powl(a.y - b.y, 2));
 }
 
@@ -48,13 +53,12 @@ void prim_MST(int const 𝕍, long double const graph[𝕍][𝕍], int parent[�
   weight[0] = 0;
   parent[0] = -1;
 
-  for (int count = 0; count < 𝕍-1; ++count) {
+  for (int count = 0; count < 𝕍 - 1; ++count) {
     int μ = minweight(𝕍, weight, visited);
     visited[μ] = true;
 
     for (int v = 0; v < 𝕍; ++v) {
-      if ((bool) graph[μ][v] && visited[v] == false
-          && graph[μ][v] < weight[v]) {
+      if ((bool)graph[μ][v] && visited[v] == false && graph[μ][v] < weight[v]) {
         parent[v] = μ;
         weight[v] = graph[μ][v];
       }
@@ -72,19 +76,22 @@ void prim_MST(int const 𝕍, long double const graph[𝕍][𝕍], int parent[�
 //   }
 // }
 
-
-long double mst_walk(int const 𝕍, long double const graph[𝕍][𝕍], int const parent[𝕍]) {
+long double mst_walk(int const 𝕍, long double const graph[𝕍][𝕍],
+                     int const parent[𝕍]) {
   // Returns the total MST length
   long double cost = 0;
   for (int i = 1; i < 𝕍; ++i) {
     cost += graph[i][parent[i]];
-    debug_print("%d — %d" "\t" "%Lf" "\n", parent[i], i, graph[i][parent[i]]);
+    debug_print("%d — %d"
+                "\t"
+                "%Lf"
+                "\n",
+                parent[i], i, graph[i][parent[i]]);
   }
   return cost;
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
-{
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int w, h, 𝕍;
   scanf("%d %d %d", &w, &h, &𝕍);
   struct Point bulbs[++𝕍];
@@ -99,14 +106,15 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
       if (v1 == v2) {
         graph[v1][v2] = graph[v2][v1] = 0;
       } else {
-        graph[v1][v2] = graph[v2][v1] = distance_euclid(bulbs[v1], bulbs[v2]) / 100;
+        graph[v1][v2] = graph[v2][v1] =
+            distance_euclid(bulbs[v1], bulbs[v2]) / 100;
       }
     }
   }
-  
+
   int parent[𝕍];
   prim_MST(𝕍, graph, parent);
-  
+
   printf("%Lf", 1.5L + mst_walk(𝕍, graph, parent));
 
   return 0;

@@ -1,6 +1,6 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 #ifndef AGV_TREE
 #define AGV_TREE
@@ -10,9 +10,9 @@ struct BTNode {
   struct BTNode *l, *r;
 };
 
-struct BTNode* bt_insert(struct BTNode** root_ptr, int const a) {
-  struct BTNode* new_node = malloc(sizeof(struct BTNode));
-  struct BTNode* root = *root_ptr;
+struct BTNode *bt_insert(struct BTNode **root_ptr, int const a) {
+  struct BTNode *new_node = malloc(sizeof(struct BTNode));
+  struct BTNode *root = *root_ptr;
   if (!new_node) {
     return NULL;
   }
@@ -22,28 +22,37 @@ struct BTNode* bt_insert(struct BTNode** root_ptr, int const a) {
     *root_ptr = new_node;
     return new_node;
   }
-  struct BTNode* curr = root;
+  struct BTNode *curr = root;
   while (curr != NULL) {
-    if (a < curr->val && curr->l != NULL) {curr = curr->l;}
-    else if (a >= curr->val && curr->r != NULL) {curr = curr->r;}
-    else break;
+    if (a < curr->val && curr->l != NULL) {
+      curr = curr->l;
+    } else if (a >= curr->val && curr->r != NULL) {
+      curr = curr->r;
+    } else
+      break;
   }
-  if (a < curr->val) {curr->l = new_node;}
-  else {curr->r = new_node;}
+  if (a < curr->val) {
+    curr->l = new_node;
+  } else {
+    curr->r = new_node;
+  }
   return root;
 }
 
-struct BTNode const* bt_search(struct BTNode const* root, int const a) {
+struct BTNode const *bt_search(struct BTNode const *root, int const a) {
   while (root) {
     if (root->val == a) {
       return root;
-    } else if (a < root->val) { root = root->l; }
-    else { root = root->r; }
+    } else if (a < root->val) {
+      root = root->l;
+    } else {
+      root = root->r;
+    }
   }
   return NULL;
 }
 
-struct BTNode* bt_delete(struct BTNode* root, int const a) {
+struct BTNode *bt_delete(struct BTNode *root, int const a) {
   if (!root) {
     return 0;
   }
@@ -52,7 +61,7 @@ struct BTNode* bt_delete(struct BTNode* root, int const a) {
   } else if (root->val < a) {
     root->r = bt_delete(root->r, a);
   } else {
-    struct BTNode* temp;
+    struct BTNode *temp;
     if (!root->l) {
       temp = root->r;
       free(root);
@@ -73,16 +82,20 @@ struct BTNode* bt_delete(struct BTNode* root, int const a) {
   return root;
 }
 
-void bt_free(struct BTNode* root) {
-  if (!root) {return;}
+void bt_free(struct BTNode *root) {
+  if (!root) {
+    return;
+  }
   bt_free(root->l);
   bt_free(root->r);
-  if (!root->r && !root->l) {free(root);}
+  if (!root->r && !root->l) {
+    free(root);
+  }
 }
 
 #endif
 
-int bt_branches(struct BTNode* root) {
+int bt_branches(struct BTNode *root) {
   bool children = 0;
   if (root->l) {
     children += bt_branches(root->l);
@@ -90,14 +103,16 @@ int bt_branches(struct BTNode* root) {
   if (root->r) {
     children += bt_branches(root->r);
   }
-  if (children == 1) {printf("%d\n", root->val);}
+  if (children == 1) {
+    printf("%d\n", root->val);
+  }
   return children;
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int b;
-  struct BTNode* root;
-  struct BTNode* tmp;
+  struct BTNode *root;
+  struct BTNode *tmp;
   while (scanf("%d", &b) == 1 && b != 0) {
     tmp = bt_insert(&root, b);
     if (!tmp) {

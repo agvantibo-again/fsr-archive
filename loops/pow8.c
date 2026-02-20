@@ -1,13 +1,13 @@
-#include<stdio.h>
-#include<stdbool.h>
-#include<string.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
 #define A_MAX_LEN 32000
 #define BASE 10000000000
 
 typedef struct u_arbitrary {
   unsigned int l_significand;
-  int* significand;
+  int *significand;
 } u_arbitrary;
 
 void u_arbitrary_print(u_arbitrary n) {
@@ -29,7 +29,7 @@ void u_arbitrary_print(u_arbitrary n) {
   putchar('\n');
 }
 
-static void u_arbitrary_mul(u_arbitrary* n, char m) {
+static void u_arbitrary_mul(u_arbitrary *n, char m) {
   // this is designed to work only for m < 10
   // if this were a stdlib function this is where I'd tell you to never use it
 
@@ -44,29 +44,24 @@ static void u_arbitrary_mul(u_arbitrary* n, char m) {
   // grandiose.
   memset(mantisse, -1, sizeof(mantisse));
 
-  u_arbitrary res = {
-    .l_significand = n->l_significand,
-    .significand = mantisse
-  }; // idc if this shadows anything
-  for (int i = (int) n->l_significand - 1; i >= 0; i--) {
+  u_arbitrary res = {.l_significand = n->l_significand,
+                     .significand = mantisse}; // idc if this shadows anything
+  for (int i = (int)n->l_significand - 1; i >= 0; i--) {
     // I should really check for bounds
     int product = n->significand[i] * m + carry;
     res.significand[i] = product % BASE;
-    carry = (char) product / BASE;
+    carry = (char)product / BASE;
   }
   memcpy(n->significand, res.significand, sizeof(char[n->l_significand]));
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n;
   scanf("%d", &n);
   int mantisse[A_MAX_LEN];
   memset(mantisse, 0, sizeof(mantisse));
-  u_arbitrary res = {
-    .l_significand = A_MAX_LEN,
-    .significand = mantisse
-  };
-  res.significand[res.l_significand-1] = 1; // → i1
+  u_arbitrary res = {.l_significand = A_MAX_LEN, .significand = mantisse};
+  res.significand[res.l_significand - 1] = 1; // → i1
 
   for (int i = 0; i < n; i++) {
     u_arbitrary_mul(&res, 2);

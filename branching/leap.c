@@ -1,7 +1,7 @@
-#include<stdio.h>
+#include <stdio.h>
 
-#define yes printf( "YES");
-#define no printf( "NO");
+#define yes printf("YES");
+#define no printf("NO");
 
 int main() {
   int y;

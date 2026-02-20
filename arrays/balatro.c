@@ -1,6 +1,6 @@
 
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 const int HAND = 5;
 
@@ -15,19 +15,19 @@ enum hand {
   OAK_5
 };
 
-void swap(int* a, int* b) {
+void swap(int *a, int *b) {
   int buf = *a;
   *a = *b;
   *b = buf;
 }
 
-void bsort(int l, int* a) {
+void bsort(int l, int *a) {
   bool sorted = false;
   while (!sorted) {
     sorted = true;
     for (int i = 1; i < l; i++) {
-      if (a[i] > a[i-1]) {
-        swap(&a[i], &a[i-1]);
+      if (a[i] > a[i - 1]) {
+        swap(&a[i], &a[i - 1]);
         sorted = false;
       }
     }
@@ -36,34 +36,34 @@ void bsort(int l, int* a) {
 
 void print_hand(enum hand kind) {
   switch (kind) {
-    case OAK_5:
-      printf("Impossible");
-      break;
-    case OAK_4:
-      printf("Four of a Kind");
-      break;
-    case FULLHOUSE:
-      printf("Full House");
-      break;
-    case OAK_3:
-      printf("Three of a Kind");
-      break;
-    case OAK_2:
-      printf("One Pair");
-      break;
-    case TWOPAIR:
-      printf("Two Pairs");
-      break;
-    case STRAIGHT:
-      printf("Straight");
-      break;
-    case NOTHING:
-      printf("Nothing");
-      break;
-    }
+  case OAK_5:
+    printf("Impossible");
+    break;
+  case OAK_4:
+    printf("Four of a Kind");
+    break;
+  case FULLHOUSE:
+    printf("Full House");
+    break;
+  case OAK_3:
+    printf("Three of a Kind");
+    break;
+  case OAK_2:
+    printf("One Pair");
+    break;
+  case TWOPAIR:
+    printf("Two Pairs");
+    break;
+  case STRAIGHT:
+    printf("Straight");
+    break;
+  case NOTHING:
+    printf("Nothing");
+    break;
   }
+}
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int h[HAND], unique[HAND], unicount[HAND];
   enum hand kind;
   for (int i = 0; i < HAND; i++) {
@@ -73,7 +73,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   }
   bsort(HAND, h);
 
-  int i = 0; int j = 0;
+  int i = 0;
+  int j = 0;
   bool l_exit;
   while (i < HAND) {
     l_exit = false;
@@ -111,7 +112,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   i = 1;
   l_exit = false;
   while (i < HAND && !l_exit) {
-    if (h[i-1] != h[i]+1) {
+    if (h[i - 1] != h[i] + 1) {
       kind = NOTHING;
       l_exit = true;
     }
@@ -120,23 +121,23 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 
   if (!kind) {
     switch (unicount[0]) {
-      case 5:
-        kind = OAK_5;
-        break;
-      case 4:
-        kind = OAK_4;
-        break;
-      case 3:
-        kind = (unicount[1] == 2) ? FULLHOUSE : OAK_3;
-        break;
-      case 2:
-        kind = (unicount[1] == 2) ? TWOPAIR : OAK_2;
-        break;
-      default:
-        break;
+    case 5:
+      kind = OAK_5;
+      break;
+    case 4:
+      kind = OAK_4;
+      break;
+    case 3:
+      kind = (unicount[1] == 2) ? FULLHOUSE : OAK_3;
+      break;
+    case 2:
+      kind = (unicount[1] == 2) ? TWOPAIR : OAK_2;
+      break;
+    default:
+      break;
     }
   }
-  
+
   print_hand(kind);
 
   return 0;

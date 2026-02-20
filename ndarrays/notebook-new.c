@@ -1,9 +1,9 @@
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdbool.h>
+#include <stdio.h>
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n, m;
-  
+
   scanf("%d %d", &n, &m);
   getchar(); // eat \n
   bool page[n][m];
@@ -31,7 +31,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     // printf(" %d", hlines[r]);
   }
   // putchar('\n');
-  
+
   bool vlines[m];
   bool is_vline;
 
@@ -50,7 +50,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   int v_0 = -1;
   for (int c = 0; c < m && v_count < 2; ++c) {
     v_distance += v_count; // 0 until first line, then +1
-    if (vlines[c]) {   
+    if (vlines[c]) {
       v_count += 1;
       if (v_count == 1) {
         v_distance = 0;
@@ -59,14 +59,14 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     }
   } // find:
   // - distance between first 2 lines (v_distance)
-  // - first line (v_0)  
+  // - first line (v_0)
 
   int h_count = 0;
   int h_distance = 0;
   int h_0 = -1;
   for (int r = 0; r < n && h_count < 2; ++r) {
     h_distance += h_count; // 0 until first line, then +1
-    if (hlines[r]) {   
+    if (hlines[r]) {
       h_count += 1;
       if (h_count == 1) {
         h_distance = 0;
@@ -100,7 +100,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
       }
     }
   }
-  
+
   // if (
   //   (!h_ok && !v_ok)
   //     || (h_count == 0 && v_count == 0)
@@ -112,31 +112,21 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   // if (h_count > 1) {printf("Line");} else
   // if (v_count > 1) {printf("Vertical line");}
 
-  if (
-    !h_ok ||
-    !v_ok ||
-    (h_count == 0 && v_count == 0) ||
-    (n == 1 && m == 1) ||
-    (h_count >= 2 && v_count >= 2 && h_distance != v_distance) ||
-    (v_distance == 1 && v_count > 1) ||
-    (h_distance == 1 && h_count > 1)
-  ) {
-      printf("?");
-  } 
-  else if (h_count >= 1 && v_count >= 1) {
-      printf("Square");
-  } 
-  else if (h_count > 1) {
-      printf("Line");
-  } 
-  else if (v_count > 1) {
-      printf("Vertical line");
+  if (!h_ok || !v_ok || (h_count == 0 && v_count == 0) || (n == 1 && m == 1) ||
+      (h_count >= 2 && v_count >= 2 && h_distance != v_distance) ||
+      (v_distance == 1 && v_count > 1) || (h_distance == 1 && h_count > 1)) {
+    printf("?");
+  } else if (h_count >= 1 && v_count >= 1) {
+    printf("Square");
+  } else if (h_count > 1) {
+    printf("Line");
+  } else if (v_count > 1) {
+    printf("Vertical line");
   }
   // remaining cases
   else {
-      printf("?");
+    printf("?");
   }
 
   return 0;
 }
-

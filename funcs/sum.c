@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 
 int r_sum(int i) {
   int buf;
@@ -6,9 +6,8 @@ int r_sum(int i) {
   return (buf == 0) ? i : r_sum(i + buf);
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   printf("%d\n", r_sum(0));
 
   return 0;
 }
-

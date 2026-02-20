@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-
-void printer_hp(int i, int n, int* from) // very bad printer
+void printer_hp(int i, int n, int *from) // very bad printer
 {
   if (i < n) {
     printf((from[i] >= 0) ? "+" : "");
@@ -11,7 +10,7 @@ void printer_hp(int i, int n, int* from) // very bad printer
   }
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   int n;
   scanf("%d", &n);
   int input[n];

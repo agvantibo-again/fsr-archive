@@ -1,17 +1,12 @@
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 // madness. TitleCase is for structs
 bool IsPointInSquare(double x, double y) {
-  return (
-    x >= -1 &&
-    y >= -1 &&
-    x <= 1 &&
-    y <= 1
-  );
+  return (x >= -1 && y >= -1 && x <= 1 && y <= 1);
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   double x, y;
   scanf("%lf %lf", &x, &y);
   printf(IsPointInSquare(x, y) ? "YES" : "NO");

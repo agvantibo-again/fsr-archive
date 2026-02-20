@@ -1,7 +1,7 @@
-#include<stdlib.h>
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 int main() {
-  const int* i = malloc(sizeof(int));
+  const int *i = malloc(sizeof(int));
   printf("%d", *i);
 }

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-static void swap(int * a, int * b) {
+static void swap(int *a, int *b) {
   int buffer = *a;
   *a = *b;
   *b = buffer;

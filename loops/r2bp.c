@@ -1,18 +1,18 @@
-#include<string.h>
-#include<stdio.h>
-#include<stdbool.h>
-#include<math.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
 #define FLOAT_TOLERANCE 1e-4L
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n, m;
   int ans[256];
   long double rem[256] = {0.0};
   double frac, f, integ;
   bool per = false; // have to initialize false for while loop
   scanf("%d %d", &n, &m);
-  f = (double) n / m;
+  f = (double)n / m;
   memset(ans, -1, sizeof ans);
   // As of C23, VLAs can now be initialised with an empty initialiser { },
   // which, acting as with other compound types will initialise each element
@@ -20,16 +20,12 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   //
   // BUT NOT ON THE informatics.msk.ru compiler!!!
 
-  for (
-    int i = 0;
-    !per && f != 0 && i < (int) (sizeof(ans) / sizeof(int));
-    i++
-  ) {
+  for (int i = 0; !per && f != 0 && i < (int)(sizeof(ans) / sizeof(int)); i++) {
     f *= 2;
     per = false;
     frac = modf(f, &integ);
     // printf("integer %f frac %f\n", integ, frac);
-    for (int i = 0; i < (int) (sizeof rem / sizeof(long double)); i++) {
+    for (int i = 0; i < (int)(sizeof rem / sizeof(long double)); i++) {
       if (rem[i] == 0.0L) { // end of allocated remainders
         rem[i] = frac;
         break;
@@ -42,13 +38,9 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     f = frac;
   }
   // AAAAAAAAA (aaaaaaaaaa)
-  
-  for (
-    int i = sizeof ans / sizeof(int) - 1;
-    ((i >= 0 && ans[i] == -1) || ans[i] == 0);
-    i--
-  )
-  {
+
+  for (int i = sizeof ans / sizeof(int) - 1;
+       ((i >= 0 && ans[i] == -1) || ans[i] == 0); i--) {
     ans[i] = -1;
   }
 
@@ -57,11 +49,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   if (per) {
     putchar('(');
   }
-  for (
-    int i = 0;
-    i < (int) (sizeof(ans) / sizeof(int)) && ans[i] != -1;
-    i++
-  ) {
+  for (int i = 0; i < (int)(sizeof(ans) / sizeof(int)) && ans[i] != -1; i++) {
     printf("%d", ans[i]);
   }
   if (per) {

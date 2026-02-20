@@ -12,11 +12,7 @@ enum Operations {
   CLEAR = 5
 };
 
-enum RetCodes {
-  OK = 0,
-  EMPTY = 1,
-  MEM_ERROR = 2
-};
+enum RetCodes { OK = 0, EMPTY = 1, MEM_ERROR = 2 };
 
 struct ListItem {
   int v;
@@ -27,14 +23,13 @@ struct Queue {
   struct ListItem *top, *bot;
 };
 
-int Queue_init(struct Queue* q)
-{
+int Queue_init(struct Queue *q) {
   q->top = q->bot = NULL;
   return OK;
 }
 
-int Queue_push(struct Queue* q, int const a) {
-  struct ListItem* new = malloc(sizeof(struct ListItem));
+int Queue_push(struct Queue *q, int const a) {
+  struct ListItem *new = malloc(sizeof(struct ListItem));
   if (new == NULL) {
     return MEM_ERROR;
   }
@@ -51,7 +46,7 @@ int Queue_push(struct Queue* q, int const a) {
   return OK;
 }
 
-int Queue_top(struct Queue* const q, int* a) {
+int Queue_top(struct Queue *const q, int *a) {
   if (q->top == NULL) {
     return EMPTY;
   }
@@ -59,7 +54,7 @@ int Queue_top(struct Queue* const q, int* a) {
   return OK;
 }
 
-int Queue_pop(struct Queue* q, int* a) {
+int Queue_pop(struct Queue *q, int *a) {
   if (q->top == NULL) {
     return EMPTY;
   }
@@ -70,15 +65,15 @@ int Queue_pop(struct Queue* q, int* a) {
   } else {
     q->top = q->top->p;
     free(q->top->n);
-    q->top->n = NULL; 
+    q->top->n = NULL;
   }
   return OK;
 }
 
-int Queue_clear(struct Queue* q) {
-  struct ListItem* i = q->top;
+int Queue_clear(struct Queue *q) {
+  struct ListItem *i = q->top;
   while (i != NULL) {
-    struct ListItem* tmp = i->p;
+    struct ListItem *tmp = i->p;
     free(i);
     i = tmp;
   }
@@ -86,11 +81,9 @@ int Queue_clear(struct Queue* q) {
   return OK;
 }
 
-int is_Queue_empty(struct Queue* const q) {
-  return (q->top == NULL);
-}
+int is_Queue_empty(struct Queue *const q) { return (q->top == NULL); }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   enum Operations op;
   int buf, ret;
   struct Queue q;
@@ -121,7 +114,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     if (ret == 2) {
       return 1;
     } else if (op == IS_EMPTY) {
-        printf("%d\n", ret);
+      printf("%d\n", ret);
     } else if (ret == 1) {
       printf("Queue is empty\n");
     } else if (op == FRONT) {

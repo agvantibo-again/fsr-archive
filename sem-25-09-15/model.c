@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 
 int main() {
   double r, k, u;
@@ -6,9 +6,9 @@ int main() {
   scanf("%lf %lf %lf %d", &r, &k, &u, &T);
 
   for (int t = 0; t < T; t++) {
-    u = r * u * (1-u/k);
+    u = r * u * (1 - u / k);
   }
-  printf("%lf", u);  
+  printf("%lf", u);
 
   return 0;
 }

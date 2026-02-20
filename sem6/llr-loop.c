@@ -3,10 +3,10 @@
 
 typedef struct IntListML {
   int val;
-  struct IntListML* next;
+  struct IntListML *next;
 } IntListML;
 
-IntListML* reverse_IntListML(IntListML* head) {
+IntListML *reverse_IntListML(IntListML *head) {
   IntListML *curr = head, *prev = NULL, *next;
 
   while (curr != NULL) {
@@ -18,7 +18,7 @@ IntListML* reverse_IntListML(IntListML* head) {
   return prev;
 }
 
-void print_IntListML(IntListML* node) {
+void print_IntListML(IntListML *node) {
   while (node != NULL) {
     printf("%d", node->val);
     if (node->next != NULL) {
@@ -28,7 +28,7 @@ void print_IntListML(IntListML* node) {
   }
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n;
   scanf("%d", &n);
 
@@ -43,7 +43,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     cur = cur->next;
   }
   cur->next = NULL;
-  
+
   print_IntListML(reverse_IntListML(&head));
 
   putchar('\n');

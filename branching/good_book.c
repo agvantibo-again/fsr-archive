@@ -6,8 +6,8 @@ struct page {
 };
 
 const struct page empty_page = {
-  .lang = '-',
-  .page = -1,
+    .lang = '-',
+    .page = -1,
 };
 
 void print_page_or_die(struct page p) {
@@ -28,7 +28,7 @@ int main() {
   s_book += s_book % 2;
   p--;
 
-  struct page book[s_book-1];
+  struct page book[s_book - 1];
 
   for (int i = 0; i < s_book; i++) {
     if ((i + 1) <= n) {

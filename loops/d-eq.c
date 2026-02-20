@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int a, b, c, d;
   scanf("%d%d%d%d", &a, &b, &c, &d);
 

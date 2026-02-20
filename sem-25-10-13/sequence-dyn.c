@@ -1,18 +1,17 @@
-#include<stdio.h>
-#include<stdbool.h>
-#include<stdlib.h> // malloc
-#include<string.h> // memcpy
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h> // malloc
+#include <string.h> // memcpy
 
 #define lseq_max 31
 
 typedef struct n_int_array {
   size_t len;
   bool ok;
-  int* a;
+  int *a;
 } IntArr;
 
-
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n;
   scanf("%d", &n);
   getchar(); // eat \n
@@ -20,7 +19,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   int buffer[lseq_max], b;
   IntArr sequences[n];
   for (int i = 0; i < n; ++i) {
-    #define seq sequences[i]
+#define seq sequences[i]
     // grab a short handle for the sequence we're reading
     seq.len = 0;
     seq.ok = false;
@@ -31,14 +30,14 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
       ++seq.len;
     }
     // printf("Segment done");
-    seq.a = malloc(sizeof (int) * seq.len);
-    memcpy(seq.a, buffer, sizeof (int) * seq.len);
+    seq.a = malloc(sizeof(int) * seq.len);
+    memcpy(seq.a, buffer, sizeof(int) * seq.len);
     seq.ok = (bool)(seq.a);
   }
 
   for (int i = 0; i < lseq_max; ++i) {
     for (int j = 0; j < n; ++j) {
-      if (i < (int) sequences[j].len) {
+      if (i < (int)sequences[j].len) {
         printf("%d ", sequences[j].a[i]);
       }
     }
@@ -46,4 +45,3 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 
   return 0;
 }
-

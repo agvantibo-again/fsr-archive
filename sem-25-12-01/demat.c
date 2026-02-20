@@ -1,4 +1,4 @@
-#include<stdio.h> // scanf(), printf(), putchar()
+#include <stdio.h> // scanf(), printf(), putchar()
 
 #define NONE -2.0
 

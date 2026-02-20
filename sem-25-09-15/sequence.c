@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 int main() {
   int k;
@@ -14,7 +14,7 @@ int main() {
   for (int i = 0; i < k; i++) {
     scanf("%lf", &f);
     if (!p) {
-       printf("%lf ", f);
+      printf("%lf ", f);
     }
     p = !p;
   }

@@ -3,12 +3,12 @@
 
 typedef struct IntListML {
   int val;
-  struct IntListML* next;
+  struct IntListML *next;
 } IntListML;
 
-void print_IntListML(IntListML* head, int d) {
+void print_IntListML(IntListML *head, int d) {
   if (head->next != NULL) {
-    print_IntListML(head->next, d+1);
+    print_IntListML(head->next, d + 1);
   }
   printf("%d", head->val);
   if (d != 0) {
@@ -16,7 +16,7 @@ void print_IntListML(IntListML* head, int d) {
   }
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n;
   scanf("%d", &n);
 

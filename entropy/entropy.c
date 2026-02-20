@@ -1,14 +1,14 @@
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
 // void bit_set(unsigned char *data, int i)
 // {
-//   data[i/8] |= 0x80 >> (i%8); 
+//   data[i/8] |= 0x80 >> (i%8);
 // }
 
 // void bit_unset(unsigned char *data, int i)
 // {
-//   data[i/8] &= ~(0x80 >> (i%8)); 
+//   data[i/8] &= ~(0x80 >> (i%8));
 // }
 
 // char bit_get(unsigned char *data, int i)
@@ -16,9 +16,7 @@
 //   return (data[i/8] & 0x80 >> (i%8));
 // }
 
-
-int main(int argc, char** argv)
-{
+int main(int argc, char **argv) {
   if (argc != 2) {
     printf("Usage:\n");
     printf("%s <file>", argv[0]);
@@ -52,9 +50,9 @@ int main(int argc, char** argv)
 
   long double p_i;
   long double entropy = 0;
-  for (int i = 0; i < 256; i++){
+  for (int i = 0; i < 256; i++) {
     if (bytes_found[i]) {
-      p_i = (long double) bytes_found[i] / filelen;
+      p_i = (long double)bytes_found[i] / filelen;
       // printf("%Lf ", p_i);
       entropy += p_i * log2l(p_i);
     }

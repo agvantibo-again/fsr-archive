@@ -1,12 +1,12 @@
-#include<stdio.h>
+#include <stdio.h>
 
-void swap(int* a, int* b) {
+void swap(int *a, int *b) {
   int c = *a;
   *a = *b;
   *b = c;
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n, m, k;
   scanf("%d %d %d", &n, &m, &k);
   swap(&n, &m);
@@ -16,4 +16,3 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 
   return 0;
 }
-

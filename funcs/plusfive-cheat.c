@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 int calc(int s, int e) {
   if (s == e) {
@@ -11,13 +11,13 @@ int calc(int s, int e) {
   }
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   bool ans[200];
 
   for (int i = 0; i < 200; ++i) {
     printf("%d\n", i + 1);
-    fflush( stdout );
-    ans[i] = (bool) calc(1, i + 1);
+    fflush(stdout);
+    ans[i] = (bool)calc(1, i + 1);
   }
 
   printf(" = { ");

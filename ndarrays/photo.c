@@ -1,6 +1,6 @@
 
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 void read_photo(int n, int m, char arr[n][m]) {
   int buf;
@@ -11,13 +11,13 @@ void read_photo(int n, int m, char arr[n][m]) {
       if (buf == '\n' || buf == '\r') {
         fprintf(stderr, "!");
       }
-      arr[i][j] = (char) buf;
+      arr[i][j] = (char)buf;
     }
     getchar();
   }
 }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n, m, ans;
   scanf("%d %d", &n, &m);
   getchar(); // flush \n
@@ -30,7 +30,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   ans = 0;
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < m; j++) {
-    // printf("%c %c ", img1[i][j], img2[i][j]);
+      // printf("%c %c ", img1[i][j], img2[i][j]);
       if (img1[i][j] == img2[i][j]) {
         ans += 1;
       }

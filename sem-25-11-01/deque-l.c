@@ -15,11 +15,7 @@ enum Operations {
   CLEAR = 8
 };
 
-enum RetCodes {
-  OK = 0,
-  EMPTY = 1,
-  MEM_ERROR = 2
-};
+enum RetCodes { OK = 0, EMPTY = 1, MEM_ERROR = 2 };
 
 struct ListItem {
   int v;
@@ -30,14 +26,13 @@ struct Deque {
   struct ListItem *ft, *bk;
 };
 
-int Deque_init(struct Deque* d)
-{
+int Deque_init(struct Deque *d) {
   d->ft = d->bk = NULL;
   return OK;
 }
 
-int Deque_push_back(struct Deque* d, int const a) {
-  struct ListItem* new = malloc(sizeof(struct ListItem));
+int Deque_push_back(struct Deque *d, int const a) {
+  struct ListItem *new = malloc(sizeof(struct ListItem));
   if (new == NULL) {
     return MEM_ERROR;
   }
@@ -54,8 +49,8 @@ int Deque_push_back(struct Deque* d, int const a) {
   return OK;
 }
 
-int Deque_push_front(struct Deque* d, int const a) {
-  struct ListItem* new = malloc(sizeof(struct ListItem));
+int Deque_push_front(struct Deque *d, int const a) {
+  struct ListItem *new = malloc(sizeof(struct ListItem));
   if (new == NULL) {
     return MEM_ERROR;
   }
@@ -72,7 +67,7 @@ int Deque_push_front(struct Deque* d, int const a) {
   return OK;
 }
 
-int Deque_back(struct Deque* const d, int* a) {
+int Deque_back(struct Deque *const d, int *a) {
   if (d->ft == NULL) {
     return EMPTY;
   }
@@ -80,7 +75,7 @@ int Deque_back(struct Deque* const d, int* a) {
   return OK;
 }
 
-int Deque_front(struct Deque* const d, int* a) {
+int Deque_front(struct Deque *const d, int *a) {
   if (d->ft == NULL) {
     return EMPTY;
   }
@@ -88,7 +83,7 @@ int Deque_front(struct Deque* const d, int* a) {
   return OK;
 }
 
-int Deque_pop_back(struct Deque* d, int* a) {
+int Deque_pop_back(struct Deque *d, int *a) {
   if (d->bk == NULL) {
     return EMPTY;
   }
@@ -99,12 +94,12 @@ int Deque_pop_back(struct Deque* d, int* a) {
   } else {
     d->bk = d->bk->n;
     free(d->bk->p);
-    d->bk->p = NULL; 
+    d->bk->p = NULL;
   }
   return OK;
 }
 
-int Deque_pop_front(struct Deque* d, int* a) {
+int Deque_pop_front(struct Deque *d, int *a) {
   if (d->ft == NULL) {
     return EMPTY;
   }
@@ -115,15 +110,15 @@ int Deque_pop_front(struct Deque* d, int* a) {
   } else {
     d->ft = d->ft->p;
     free(d->ft->n);
-    d->ft->n = NULL; 
+    d->ft->n = NULL;
   }
   return OK;
 }
 
-int Deque_clear(struct Deque* d) {
-  struct ListItem* i = d->ft;
+int Deque_clear(struct Deque *d) {
+  struct ListItem *i = d->ft;
   while (i != NULL) {
-    struct ListItem* tmp = i->p;
+    struct ListItem *tmp = i->p;
     free(i);
     i = tmp;
   }
@@ -131,11 +126,9 @@ int Deque_clear(struct Deque* d) {
   return OK;
 }
 
-int is_Deque_empty(struct Deque* const d) {
-  return (d->ft == NULL);
-}
+int is_Deque_empty(struct Deque *const d) { return (d->ft == NULL); }
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   enum Operations op;
   int buf, ret;
   struct Deque d;
@@ -177,7 +170,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
       Deque_clear(&d);
       return 1;
     } else if (op == IS_EMPTY) {
-        printf("%d\n", ret);
+      printf("%d\n", ret);
     } else if (ret == 1) {
       printf("Deque is empty\n");
     } else if (op == POP_FRONT || op == POP_BACK || op == FRONT || op == BACK) {

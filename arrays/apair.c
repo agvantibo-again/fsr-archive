@@ -1,8 +1,9 @@
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdbool.h>
+#include <stdio.h>
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
-  int n; int b[2] = {0, 0};
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
+  int n;
+  int b[2] = {0, 0};
   bool pair = false;
   scanf("%d", &n);
 
@@ -19,6 +20,6 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   } else {
     printf("NO");
   }
-  
+
   return 0;
 }

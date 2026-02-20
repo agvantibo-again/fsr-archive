@@ -1,10 +1,10 @@
-#include<stdio.h>
-#include<stdbool.h>
-#include<string.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
 #define endl putchar('\n')
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n, m; // rows, cols
   scanf("%d %d", &n, &m);
   bool balls[n][m];
@@ -26,7 +26,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 
   for (int r = 0; r < n_sculpt; r += 2) {
     for (int c = 0; c < m_sculpt; c += 2) {
-      if (balls[(int)r/2][(int)c/2]) {
+      if (balls[(int)r / 2][(int)c / 2]) {
         sculpt[r][c] = '#';
       }
     }
@@ -34,30 +34,35 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 
   // set up vertical and horizontal connections
   for (int r = 0; r < n_sculpt; ++r) {
-    for (int c = 1; c < m_sculpt-1; c+=2) {
-      if (sculpt[r][c-1] == '#' && sculpt[r][c+1] == '#')
-      {sculpt[r][c] = '-';} else {sculpt[r][c] = ' ';}
+    for (int c = 1; c < m_sculpt - 1; c += 2) {
+      if (sculpt[r][c - 1] == '#' && sculpt[r][c + 1] == '#') {
+        sculpt[r][c] = '-';
+      } else {
+        sculpt[r][c] = ' ';
+      }
     }
   }
-  for (int r = 1; r < n_sculpt-1; r+=2) {
+  for (int r = 1; r < n_sculpt - 1; r += 2) {
     for (int c = 0; c < m_sculpt; ++c)
-    if (sculpt[r+1][c] == '#' && sculpt[r-1][c] == '#')
-    {sculpt[r][c] = '|';} else {sculpt[r][c] = ' ';}
+      if (sculpt[r + 1][c] == '#' && sculpt[r - 1][c] == '#') {
+        sculpt[r][c] = '|';
+      } else {
+        sculpt[r][c] = ' ';
+      }
   }
 
   // set up diagonal connections
   bool normal, backward;
-  for (int r = 1; r < n_sculpt-1; r+=2) {
-    for (int c = 1; c < m_sculpt-1; c+=2) {
-      normal = (sculpt[r-1][c+1] == '#' && sculpt[r+1][c-1] == '#'); 
-      backward = (sculpt[r+1][c+1] == '#' && sculpt[r-1][c-1] == '#');
-      sculpt[r][c] = !normal && !backward ? ' ' :
-                     normal && backward ? 'X' :
-                     normal ? '/' : '\\'; // backward
+  for (int r = 1; r < n_sculpt - 1; r += 2) {
+    for (int c = 1; c < m_sculpt - 1; c += 2) {
+      normal = (sculpt[r - 1][c + 1] == '#' && sculpt[r + 1][c - 1] == '#');
+      backward = (sculpt[r + 1][c + 1] == '#' && sculpt[r - 1][c - 1] == '#');
+      sculpt[r][c] = !normal && !backward ? ' '
+                     : normal && backward ? 'X'
+                     : normal             ? '/'
+                                          : '\\'; // backward
     }
   }
-  
-
 
   endl;
   for (int r = 0; r < n_sculpt; ++r) {

@@ -1,7 +1,7 @@
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdbool.h>
+#include <stdio.h>
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   int n, h;
   bool printed;
   scanf("%d", &n);
@@ -10,11 +10,11 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
   for (int i = 0; i < n; i++) {
     scanf("%d", &row[i]);
   }
-  
+
   scanf("%d", &h);
 
   printed = false;
-  for (int i = n-1; i >= 0; i--) {
+  for (int i = n - 1; i >= 0; i--) {
     if (row[i] >= h) {
       printf("%d", i + 2);
       printed = true;

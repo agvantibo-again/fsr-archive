@@ -10,11 +10,11 @@ int main() {
 
   // printf("%s\n", uinput);
   // printf("%s\n", pi);
-  if (! strncmp(uinput, pi, 8)) {
+  if (!strncmp(uinput, pi, 8)) {
     printf("YES\n");
   } else {
     printf("NO\n");
   }
-  
+
   return 0;
 }

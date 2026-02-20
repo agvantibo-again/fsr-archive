@@ -1,9 +1,9 @@
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
-#include<ctype.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   int s, i;
   char inp[1024];
   scanf("%d", &s);

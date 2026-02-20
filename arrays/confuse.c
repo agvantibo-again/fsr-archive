@@ -1,8 +1,8 @@
 
-#include<stdio.h>
-#include<limits.h>
+#include <limits.h>
+#include <stdio.h>
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
   long long int n, m, b, min, max;
   scanf("%lld %lld", &n, &m);
   min = LLONG_MAX;

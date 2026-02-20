@@ -1,9 +1,9 @@
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
 int main() {
   int m, n;
-  int margin; 
+  int margin;
 
   scanf("%d%d", &m, &n);
   margin = floor(log10(n + n)) + 1;
@@ -14,6 +14,6 @@ int main() {
     }
     printf("\n");
   }
-  
+
   return 0;
 }

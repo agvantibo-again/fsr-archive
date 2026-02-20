@@ -1,15 +1,15 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 int toupper(int c) {
-  if (96 < c && c < 123 ) {
+  if (96 < c && c < 123) {
     return c ^ 32; // ASCII to uppercase
   } else {
     return c;
   }
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   int s, i;
   bool p_space;
   char input[1024];

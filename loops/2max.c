@@ -1,17 +1,15 @@
-#include<stdio.h>
+#include <stdio.h>
 
-void swap(int* a, int* b) {
+void swap(int *a, int *b) {
   int c = *a;
   *a = *b;
   *b = c;
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   int buf, max1, max2;
   buf = 1;
   max1 = max2 = 0;
-
-  
 
   while (buf != 0) {
     scanf("%d", &buf);
