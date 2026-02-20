@@ -1,184 +1,113 @@
 #include<stdio.h>
+#include<stdbool.h>
 #include<math.h>
 #include<float.h>
 
+
+// #define DEBUG
+
+#ifdef DEBUG
+#define DEBUG_TEST 1
+#else
+#define DEBUG_TEST 0
+#endif
+
+#define debug_print(fmt, ...) \
+            do { if (DEBUG_TEST) fprintf(stderr, fmt, __VA_ARGS__); } while (0)
+
+// 𝕍 — number of vertices
+// μ — minimal vertex weight
+
 struct Point {int x, y;};
-#include <stdio.h>
-#include <stdlib.h> // malloc(), free()
-#include <stdbool.h>
 
-#define HEAPQ_CAP_INIT 2
-
-enum Operation {
-  HALT,
-  INSERT,
-  EXTRACT,
-  IS_EMPTY,
-  EDIT,
-};
-
-enum RetCode {
-  OK,
-  EMPTY,
-  NOTFOUND,
-  MEM_ERROR
-};
-
-struct kv {
-  int key;
-  long double value;
-};
-
-struct HeapQ {
-  size_t len, cap;
-  struct kv* tree;
-};
-
-enum RetCode HeapQ_init(struct HeapQ* hq);
-enum RetCode HeapQ_insert(struct HeapQ* hq, struct kv const val);
-enum RetCode HeapQ_extract(struct HeapQ* hq, struct kv* const val);
-enum RetCode HeapQ_peek(struct HeapQ* hq, struct kv* const val);
-enum RetCode HeapQ_empty(struct HeapQ* hq, bool* flag);
-enum RetCode HeapQ_sift_down(struct HeapQ* hq, size_t const at);
-enum RetCode HeapQ_sift_up(struct HeapQ* hq, size_t const at);
-enum RetCode HeapQ_edit(struct HeapQ* hq, int const key, long double const val);
-void HeapQ_zap(struct HeapQ* hq);
-
-inline static void swap_kv(struct kv* i, struct kv* j) {
-  struct kv k = *i;
-  *i = *j;
-  *j = k;
+static inline long double distance_euclid(struct Point const a, struct Point const b) {
+  return sqrtl(powl(a.x - b.x, 2) + powl(a.y - b.y, 2));
 }
 
-enum RetCode HeapQ_init(struct HeapQ* hq) {
-  hq->len = 0;
-  hq->cap = HEAPQ_CAP_INIT;
-  hq->tree = malloc(HEAPQ_CAP_INIT * sizeof(struct kv));
-  return (hq->tree) ? OK : MEM_ERROR;
-}
+int minweight(int const 𝕍, long double const weight[𝕍], bool const visited[𝕍]) {
+  long double min = LDBL_MAX;
+  int min_index;
 
-enum RetCode HeapQ_insert(struct HeapQ* hq, struct kv const val) {
-  ++hq->len;
-  if (hq->len == hq->cap) {
-    size_t const new_cap = hq->cap * 2;
-    struct kv* new_tree = realloc(hq->tree, new_cap * sizeof(struct kv));
-    if (!new_tree) {
-      return MEM_ERROR;
+  for (int v = 0; v < 𝕍; ++v) {
+    if (visited[v] == false && weight[v] < min) {
+      min = weight[v];
+      min_index = v;
     }
-    hq->cap = new_cap;
-    hq->tree = new_tree;
   }
-  size_t i = hq->len - 1;
-  hq->tree[i] = val;
-  HeapQ_sift_up(hq, i);
-  return OK;
+  return min_index;
 }
 
-enum RetCode HeapQ_extract(struct HeapQ* hq, struct kv* const val) {
-  if (!hq->len) {
-    return EMPTY;
+void prim_MST(int const 𝕍, long double const graph[𝕍][𝕍], int parent[𝕍]) {
+  long double weight[𝕍];
+  bool visited[𝕍];
+
+  for (int i = 0; i < 𝕍; ++i) {
+    weight[i] = LDBL_MAX;
+    visited[i] = false;
   }
-  if (hq->len == 1) {
-    --hq->len;
-    *val = hq->tree[0];
-    return OK;
+  weight[0] = 0;
+  parent[0] = -1;
+
+  for (int count = 0; count < 𝕍-1; ++count) {
+    int μ = minweight(𝕍, weight, visited);
+    visited[μ] = true;
+
+    for (int v = 0; v < 𝕍; ++v) {
+      if ((bool) graph[μ][v] && visited[v] == false
+          && graph[μ][v] < weight[v]) {
+        parent[v] = μ;
+        weight[v] = graph[μ][v];
+      }
+    }
   }
-  *val = hq->tree[0];
-  hq->tree[0] = hq->tree[hq->len - 1];
-  --hq->len;
-  HeapQ_sift_down(hq, 0);
-  return OK;
 }
 
-enum RetCode HeapQ_peek(struct HeapQ* hq, struct kv* const val) {
-  if (!hq->len) {
-    return EMPTY;
-  }
-  *val = hq->tree[0];
-  return OK;
-}
-
-enum RetCode HeapQ_empty(struct HeapQ* hq, bool* flag) {
-  if (!hq) {
-    return MEM_ERROR;
-  }
-  *flag = (hq->len <= 0);
-  return OK;
-} 
-
-enum RetCode HeapQ_edit(struct HeapQ* hq, int const val_0, long double const val) {
-  size_t at;
-  for (at = 0; (at 
-    < hq->len && hq->tree[at].key != val_0); ++at) {}
-  if (at == hq->len) { // unsuccessful search
-    return NOTFOUND;
-  }
-  struct kv old = hq->tree[at];
-  hq->tree[at].value = val;
-  if (val > old.value) {
-    HeapQ_sift_up(hq, at); // bubble up greater value
-  } else {
-    HeapQ_sift_down(hq, at); // sink down lesser value
-  }
-  return OK;
-}
-
-enum RetCode HeapQ_sift_down(struct HeapQ* hq, size_t const at) {
-  size_t min = at;
-  size_t left = at * 2 + 1;
-  size_t right = at * 2 + 2;
-
-  if (left < hq->len && hq->tree[left].value >= hq->tree[min].value) {
-    min = left;
-  }
-  if (right < hq->len && hq->tree[right].value > hq->tree[min].value) {
-    min = right;
-  }
-  if (min != at) {
-    swap_kv(hq->tree + at, hq->tree + min);
-    return HeapQ_sift_down(hq, min);
-  }
-  return OK;
-}
-
-enum RetCode HeapQ_sift_up(struct HeapQ* hq, size_t at) {
-  while (at != 0 && hq->tree[(at - 1) / 2].value < hq->tree[at].value) {
-    swap_kv(hq->tree + at, hq->tree + ((at - 1) / 2));
-    at = (at - 1) / 2;
-  }
-  return OK;
-}
-
-void HeapQ_zap(struct HeapQ* hq) {
-  free(hq->tree);
-  hq->tree = NULL;
-}
+// void prettyprint_distances(int const 𝕍, long double const graph[𝕍][𝕍]) {
+//   for (int v1 = 0; v1 < 𝕍; ++v1) {
+//     for (int v2 = v1; v2 < 𝕍; ++v2) {
+//       if ((bool) graph[v1][v2]) {
+//         printf("%d — %d:\t%Lf\n", v1, v2, graph[v1][v2]);
+//       }
+//     }
+//   }
+// }
 
 
-static inline long double distance_euclid(struct Point a, struct Point b) {
-  return sqrtl(a.x*b.x + a.y*b.y);
+long double mst_walk(int const 𝕍, long double const graph[𝕍][𝕍], int const parent[𝕍]) {
+  // Returns the total MST length
+  long double cost = 0;
+  for (int i = 1; i < 𝕍; ++i) {
+    cost += graph[i][parent[i]];
+    debug_print("%d — %d" "\t" "%Lf" "\n", parent[i], i, graph[i][parent[i]]);
+  }
+  return cost;
 }
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 {
-  int w, h, n;
-  scanf("%d %d %d", &w, &h, &n);
-  struct Point bulbs[++n];
+  int w, h, 𝕍;
+  scanf("%d %d %d", &w, &h, &𝕍);
+  struct Point bulbs[++𝕍];
   bulbs[0].x = bulbs[0].y = 0;
-  for (int i = 1; i < n; ++i) {
+  for (int i = 1; i < 𝕍; ++i) {
     scanf("%d %d", &bulbs[i].x, &bulbs[i].y);
   }
 
-  long double amat[n][n];
-  for (int va = 0; va < n; ++va) {
-    for (int vb = va; vb < n; ++vb) {
-      amat[va][vb] = amat[vb][va] = distance_euclid(bulbs[va], bulbs[vb]);
+  long double graph[𝕍][𝕍];
+  for (int v1 = 0; v1 < 𝕍; ++v1) {
+    for (int v2 = 0; v2 < 𝕍; ++v2) {
+      if (v1 == v2) {
+        graph[v1][v2] = graph[v2][v1] = 0;
+      } else {
+        graph[v1][v2] = graph[v2][v1] = distance_euclid(bulbs[v1], bulbs[v2]) / 100;
+      }
     }
   }
-  long double dist[n];
-  int parent[n];
-  for (int i = 0; i < n; ++i) {dist[i] = LDBL_MAX;}
-  for (int i = 0; i < n; ++i) {parent[i] = -1;}
+  
+  int parent[𝕍];
+  prim_MST(𝕍, graph, parent);
+  
+  printf("%Lf", 1.5L + mst_walk(𝕍, graph, parent));
 
   return 0;
 }
