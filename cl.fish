@@ -3,7 +3,7 @@ function cl
     export UBSAN_OPTIONS=abort_on_error=1:halt_on_error=1
     export LSAN_OPTIONS=abort_on_error=1:halt_on_error=1
     set cc clang
-    set cflags -Wall -Wextra -Wpedantic -Wconversion \
+    set cflags -Wall -Wextra -Wpedantic -Wconversion -Wformat-signedness \
         -Wsign-conversion -Wdouble-promotion -Werror -Og \
         -g3 -fstandalone-debug -fstack-protector -lm -fuse-ld=mold \
         -std=c23
