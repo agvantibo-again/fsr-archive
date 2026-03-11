@@ -1,0 +1,12 @@
+*.zip
+*.o
+*.a
+*.out
+*.d
+*stdout
+*stderr
+*stdin
+
+.ninja_log
+.stfolder
+.stversions

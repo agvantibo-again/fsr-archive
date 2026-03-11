@@ -1,0 +1,91 @@
+- binary: ./notebook-non-paranoid
+  tests:
+    - name: example 1
+      output: Square
+      input: |
+        3 5
+        00100
+        11111
+        00100
+    - name: example 2
+      output: Line
+      input: |
+        4 5
+        11111
+        00000
+        11111
+        00000
+    - name: example 3
+      output: "?"
+      input: |
+        5 5
+        00000
+        00000
+        11111
+        00000
+        00000
+    # - name: adjacent horizontal
+    #   output: "?"
+    #   input: |
+    #     3 5
+    #     00000
+    #     11111
+    #     11111
+    - name: empty
+      output: "?"
+      input: |
+        6 5
+        000000
+        000000
+        000000
+        000000
+        000000
+    # - name: inconsistent distance
+    #   output: "?"
+    #   input: |
+    #     5 5
+    #     11111
+    #     00000
+    #     11111
+    #     00000
+    #     00000
+    - name: supergrid
+      output: "Square"
+      input: |
+        6 6
+        111111
+        101010
+        111111
+        101010
+        111111
+        101010
+    # - name: inconsistent grid
+    #   output: "?"
+    #   input: |
+    #     6 6
+    #     111111
+    #     100100
+    #     111111
+    #     100100
+    #     111111
+    #     100100
+    - name: one cell (1)
+      output: "?"
+      input: |
+        1 1
+        1
+    - name: one cell (0)
+      output: "?"
+      input: |
+        1 1
+        0
+
+    # - name: this fails
+    #   output: "fail"
+    #   input: |
+    #     5 5
+    #     00000
+    #     00000
+    #     11111
+    #     00000
+    #     00000

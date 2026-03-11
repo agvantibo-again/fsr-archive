@@ -1,0 +1,237 @@
+# https://informatics.msk.ru/mod/statements/view.php?chapterid=1768
+# Тесты к заданию "Два прямоугольника"
+# исходный код реализации на C: https://hastebin.com/share/dorebajoro.c 
+
+---
+- binary: ./malfoevich
+  tests:
+    - name: task example 1
+      output: "NO"
+      input: |
+        2 1
+        #
+        .
+    - name: task example 2
+      output: |
+        YES
+        ..
+        ba
+      input: |
+        2 2
+        ..
+        ##
+    - name: task example 3
+      output: |
+        YES
+        baa
+      input: |
+        1 3
+        ###
+    - name: task example 4
+      output: |
+        YES
+        .
+        b
+        a
+      input: |
+        3 1
+        .
+        #
+        #
+    
+    # Дополнительные тесты
+    - name: single filled cell
+      output: "NO"
+      input: |
+        1 1
+        #
+    - name: single empty cell
+      output: "NO"
+      input: |
+        1 1
+        .
+    - name: two separate rectangles horizontally
+      output: |
+        YES
+        aaa.bb
+      input: |
+        1 6
+        ###.##
+    
+    - name: two separate rectangles vertically
+      output: |
+        YES
+        a
+        a
+        .
+        b
+        b
+      input: |
+        5 1
+        #
+        #
+        .
+        #
+        #
+    
+    - name: L-shaped figure - impossible
+      output: "NO"
+      input: |
+        3 3
+        ###
+        #.#
+        ###
+    
+    - name: chessboard pattern - impossible
+      output: "NO"
+      input: |
+        3 3
+        #.#
+        .#.
+        #.#
+    
+    - name: two rectangles touching at corner
+      output: |
+        YES
+        aa.
+        .bb
+        .bb
+      input: |
+        3 3
+        ##.
+        .##
+        .##
+    
+    - name: full rectangle - possible (can be split)
+      output: |
+        YES
+        baa
+        baa
+        baa
+      input: |
+        3 3
+        ###
+        ###
+        ###
+    
+    - name: empty canvas - impossible
+      output: "NO"
+      input: |
+        3 3
+        ...
+        ...
+        ...
+    
+    - name: three separate components - impossible
+      output: "NO"
+      input: |
+        1 5
+        #.#.#
+    
+    - name: diagonal line - impossible
+      output: "NO"
+      input: |
+        3 3
+        #..
+        .#.
+        ..#
+    
+    - name: rectangle with hole in middle - impossible
+      output: "NO"
+      input: |
+        3 5
+        #####
+        #...#
+        #####
+    
+    - name: T-shaped figure
+      output: |
+        YES
+        aaa
+        .b.
+        .b.
+      input: |
+        3 3
+        ###
+        .#.
+        .#.
+    
+    - name: plus-shaped figure - impossible
+      output: "NO"
+      input: |
+        3 3
+        .#.
+        ###
+        .#.
+    
+    - name: two separate rectangles with gap
+      output: |
+        YES
+        aaa...
+        aaa...
+        ...bbb
+        ...bbb
+      input: |
+        4 6
+        ###...
+        ###...
+        ...###
+        ...###
+    
+    - name: single row with two rectangles
+      output: |
+        YES
+        baaa
+      input: |
+        1 4
+        ####
+    
+    - name: single column with two rectangles
+      output: |
+        YES
+        b
+        a
+        a
+        a
+      input: |
+        4 1
+        #
+        #
+        #
+        #
+    
+    - name: corner case - minimal possible
+      output: |
+        YES
+        ba
+      input: |
+        1 2
+        ##
+    
+    - name: corner case - 2x2 full
+      output: |
+        YES
+        ba
+        ba
+      input: |
+        2 2
+        ##
+        ##
+    
+    - name: disconnected but non-rectangular shapes
+      output: "NO"
+      input: |
+        3 4
+        ##..
+        .##.
+        ..##
+    
+    - name: spiral-like pattern - impossible
+      output: "NO"
+      input: |
+        5 5
+        #####
+        #...#
+        #.#.#
+        #...#
+        #####
