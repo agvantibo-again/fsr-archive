@@ -6,6 +6,7 @@
 *stdout
 *stderr
 *stdin
+*.run
 
 .ninja_log
 .stfolder

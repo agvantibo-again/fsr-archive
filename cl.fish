@@ -8,7 +8,7 @@ function cl
         -g3 -fstandalone-debug -fstack-protector -lm -fuse-ld=mold \
         -std=c23
     # -fsanitize=address,undefined -fsanitize-trap
-    set bin_name $(basename -s ".c" $argv[1])
+    set bin_name $(basename -s ".c" $argv[1]).run
     bat --style=full --paging=never -f $argv[1]
     echo " *$(set_color magenta) Compiling $(set_color brmagenta)$bin_name$(set_color magenta) with $cc $(set_color normal)"
     echo "  $(set_color magenta) Compiler flags$(set_color normal) $cflags $CFLAGS"
