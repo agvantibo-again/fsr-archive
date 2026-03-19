@@ -1,19 +1,23 @@
-#include <stdlib.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#include <readline/history.h>
 #include <readline/readline.h>
 
-static inline void swap(int* const a, int* const b) {
-  int c = *a;
+typedef unsigned long ul;
+
+static inline void swapld(long double *const a, long double *const b) {
+  long double c = *a;
   *a = *b;
   *b = c;
 }
 
-void swap_rows(size_t const dim, int matrix[dim][dim], size_t const row_a, size_t const row_b) {
-  for (size_t col = 0; col < dim; ++col) {
-    swap(((int*)((int**)matrix + row_a)) + col, ((int*)((int**)matrix + row_b)) + col);
+void swap_rowsld(ul const dim, long double matrix[dim][dim], ul const row_a,
+                 ul const row_b) {
+  for (ul col = 0; col < dim; ++col) {
+    swapld(((long double *)((long double **)matrix + row_a)) + col,
+           ((long double *)((long double **)matrix + row_b)) + col);
   }
 }
 
@@ -22,7 +26,7 @@ int main(int argc, char **argv) {
     fprintf(stderr, "Usage: %s <matrix.txt>\n", argv[0]);
     return 1;
   }
-  size_t m;
+  ul m;
   FILE *mat_file = fopen(argv[1], "r");
   if (!mat_file) {
     fprintf(stderr, "Unable to read file!\n");
@@ -32,21 +36,50 @@ int main(int argc, char **argv) {
   if (!i_buf) {
     return 1;
   }
-  m = (size_t)abs(atoi(i_buf));
-  long matrix[m][m];
+  m = (ul)abs(atoi(i_buf));
+  long double matrix[m][m];
   int scan_ret;
-  int piv_row, piv_col;
-  piv_row = piv_col = 1;
-  for (size_t row = 0; row < m; ++row) {
-    for (size_t col = 0; col < m; ++col) {
-      scan_ret = fscanf(mat_file, "%ld", &matrix[row][col]);
+  for (ul row = 0; row < m; ++row) {
+    for (ul col = 0; col < m; ++col) {
+      scan_ret = fscanf(mat_file, "%Lf", &matrix[row][col]);
       if (scan_ret == EOF) {
         fprintf(stderr, "Insufficient ingress data\n!");
         return 1;
       }
     }
   }
-  
+
+  long nonzero = 0;
+  for (ul pivot = 0; pivot < m; ++pivot) {
+    nonzero = -1; // index of first non-0 element 
+    for (ul row = 0; row < m && nonzero == -1; ++row) {
+      if (matrix[row][pivot] != 0) {
+        nonzero = (long) row;
+      }
+    }
+    if (nonzero >= 0) { // we've found something
+      if (pivot < (ul)nonzero) { // and it's below the pivot, need to swap
+        swap_rowsld(m, matrix, pivot, (ul)nonzero);
+      }
+      for (ul op_row = pivot + 1; op_row < m; ++op_row) {
+        long double factor = matrix[op_row][pivot] / matrix[pivot][pivot];
+        for (ul op_col = 0; op_col < m; ++op_col) {
+          matrix[op_row][op_col] -= matrix[pivot][op_col] * factor;
+        }
+      }
+    }
+  }
+
+  for (ul row = 0; row < m; ++row) {
+    for (ul col = 0; col < m; ++col) {
+      if (matrix[row][col] >= 0) {
+        putchar(' ');
+      }
+      printf("%Lf\t", matrix[row][col]);
+    }
+    putchar('\n');
+  }
+
   // printf("%lu\n", m);
   return 0;
 }
