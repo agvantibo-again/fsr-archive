@@ -6,7 +6,7 @@ cflags = -Wall -Wextra -Wpedantic -Wconversion $
 cc = clang
 
 # Queue implementation (agv/queue*.c)
-queue = list
+queue = array
 
 rule cc_o
     depfile = $out.d

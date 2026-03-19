@@ -1,5 +1,6 @@
 // #include <string.h>
 #include "queue.h"
+#include "string.h"
 
 #ifndef AGV_QUEUE_ARR
 #define AGV_QUEUE_ARR

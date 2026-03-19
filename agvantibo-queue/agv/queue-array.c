@@ -16,14 +16,19 @@ enum RetCode Queue_push(struct Queue *q, int const a) {
     return MEM_ERROR;
   }
   int *old_store;
+  int new_front;
   if (q->len >= q->cap) { // overflow
     old_store = q->store;
-    q->cap *= 2;
-    q->store = realloc(old_store, (unsigned long)q->cap * 2 * sizeof(int));
+    new_front = q->front + q->cap;
+    q->cap *= 2; // += q->cap but faster
+    q->store = realloc(old_store, (unsigned long)q->cap * sizeof(int));
     if (!q->store) {
       q->store = old_store;
       return MEM_ERROR;
     }
+    memcpy(&q->store[new_front], &q->store[q->front],
+           sizeof(int) * (size_t)(q->len - q->front));
+    q->front = new_front;
   }
   q->store[q->rear] = a;
   q->rear = (q->rear + 1) % q->cap;
